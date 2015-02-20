@@ -1,0 +1,5 @@
+not CT immediately.
+test it with website first.
+dev box at home and dev box with Ipes.
+add mSMQ.
+code trade function and do trade test.

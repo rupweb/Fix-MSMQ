@@ -1,0 +1,14 @@
+- show which topic/queue waiting for messages in the startup log
+- is there a FIX reconciliation report like a SWIFT 940?
+- what if provider 1 is FIX 4.2 and provider 2 is fix 4.4?
+- website with a form / webservice that allows to enter FIX commands
+- connect webservice to activeMQ
+
+- get PoC so can't say no...
+
+- x hours estimate
+- contract with Ipes or Usrtec
+- £40 to £50 / hour
+- or project rate / days (at 8 hour days)
+- consultancy basis (further work)
+- how much are Ipes going to return on FIX engine? volume / commission
