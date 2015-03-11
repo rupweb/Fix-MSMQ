@@ -97,7 +97,17 @@ namespace Usrtec
 		
 		public void q()
 		{			
-            QuickFix.FIX44.QuoteRequest qr = QuoteRequest44();
+			Quote o = new Quote();
+			o.id = "TEST_" + DateTime.Now.ToString("hhmmssfff");
+			o.instrument = "EUR/USD";
+			o.side = "BUY";
+			o.size = 1000000;
+			o.account = "357647";
+			// Get spot settlement date without including holidays. This could be a nitemare across all countries... 
+			// TODO: A holiday checker?
+			o.value_date = Utils.AddBusinessDays(DateTime.Today, 2).ToString("yyyyMMdd");
+			
+			QuickFix.FIX44.QuoteRequest qr = QuoteRequest44(o);
 
             if (qr != null)
             {
@@ -152,10 +162,20 @@ namespace Usrtec
 		
 		public void nos()
 		{
-            // A new order requires a PREVIOUSLY_QUOTED quote id. Get that from the quote array.
-            
+			Order o = new Order();
 			
-			QuickFix.FIX44.NewOrderSingle order = NewOrderSingle44();
+			o.id = _rfq_id.ToString();
+			// Need to look up the latest quote_id for this rfq from the RFQ QUOTE struct
+			o.quote_id = Rfq.get_rfq_quote(o.id);
+			o.instrument = "EUR/USD";
+			o.side = "BUY";
+			o.size = 1000000;
+			o.account = "357647";
+			o.value_date = Utils.AddBusinessDays(DateTime.Today, 2).ToString("yyyyMMdd");			
+			
+            // A new order requires a PREVIOUSLY_QUOTED quote id. Get that from the quote array.
+            			
+			QuickFix.FIX44.NewOrderSingle order = NewOrderSingle44(o);
 
             if (order != null)
             {
@@ -214,30 +234,22 @@ namespace Usrtec
             }
         }
 		
-		private QuickFix.FIX44.QuoteRequest QuoteRequest44()
+		private QuickFix.FIX44.QuoteRequest QuoteRequest44(Quote o)
 		{
-			QuoteReqID id = new QuoteReqID("TEST_" + DateTime.Now.ToString("hhmmssfff"));
+			QuoteReqID id = new QuoteReqID(o.id);
 			_rfq_id = new QuoteID(id.ToString());
 			
 			QuickFix.FIX44.QuoteRequest qr = new QuickFix.FIX44.QuoteRequest(id);
-			
-			// Symbol, OrderQty and Account are in a repeating groups
-        	// QuickFix.Group group = new QuickFix.Group(QuickFix.Fields.Tags.NoRelatedSym, QuickFix.Fields.Tags.Symbol);
-        	// group.SetField(new QuickFix.Fields.Symbol("EUR/USD"));
-        	// group.SetField(new QuickFix.Fields.OrderQty(1000000));
-			// group.SetField(new QuickFix.Fields.Account("357647"));
-			
-			qr.SetField(new QuickFix.Fields.Symbol("EUR/USD"));
-			// qr.SetField(new QuickFix.Fields.Account("357647"));
+						
+			qr.SetField(new QuickFix.Fields.Symbol(o.instrument));
 			
 			QuickFix.FIX44.QuoteRequest.NoRelatedSymGroup group = new QuickFix.FIX44.QuoteRequest.NoRelatedSymGroup();
 			group.Set (new QuoteRequestType(102));
-			group.Set (new OrderQty(1000000));
+			group.Set (new OrderQty(o.size));
 			group.Set (new SettlType("B"));	
-			group.Set (new Account("357647"));
-			group.Set (new Currency("EUR"));
-			// Get spot settlement date without including holidays. This could be a nitemare across all countries... Need a holiday checker.
-			group.Set (new SettlDate(Utils.AddBusinessDays(DateTime.Today, 2).ToString("yyyyMMdd")));
+			group.Set (new Account(o.account));
+			group.Set (new Currency(o.instrument.Substring(0,3)));
+			group.Set (new SettlDate(o.value_date));
 			
         	// add group to request
         	qr.AddGroup(group);
@@ -347,28 +359,32 @@ namespace Usrtec
             return message;
         }		
 			
-        private QuickFix.FIX44.NewOrderSingle NewOrderSingle44()
-        {
-            // Ensure each order has unique order id for today
-            // QuickFix.Fields.ClOrdID clOrdID = new ClOrdID("IPES_" + DateTime.Now.ToString("hhmmssfff"));
-            
+        private QuickFix.FIX44.NewOrderSingle NewOrderSingle44(Order o)
+        {          
             // TODO: Raise an exception if _rfq_id is not supplied or is null
             
-            QuickFix.Fields.ClOrdID clOrdID = new ClOrdID(_rfq_id.ToString());
-        	
-            QuickFix.Fields.Symbol symbol = new Symbol("EUR/USD");
-            QuickFix.Fields.Side side = new Side('1');
+            QuickFix.Fields.ClOrdID clOrdID = new ClOrdID(o.id);      	
+            QuickFix.Fields.Symbol symbol = new Symbol(o.instrument);
             QuickFix.Fields.TransactTime time = new TransactTime(DateTime.Now);
             QuickFix.Fields.OrdType ordType = new OrdType(OrdType.PREVIOUSLY_QUOTED);
             // QuickFix.Fields.OrdType ordType = new OrdType(OrdType.MARKET);
-            // QuickFix.Fields.OrdType ordType = new OrdType(OrdType.LIMIT);            
+            // QuickFix.Fields.OrdType ordType = new OrdType(OrdType.LIMIT);  
+
+			// Establish whether buying or selling            
+			char BuyOrSell;
+            if (o.side == "BUY")
+            	BuyOrSell = '1';
+            else
+            	BuyOrSell = '2';
+            	
+            QuickFix.Fields.Side side = new Side(BuyOrSell);
 
             QuickFix.FIX44.NewOrderSingle nos = new QuickFix.FIX44.NewOrderSingle(
             	clOrdID, symbol, side, time, ordType);
 
-            nos.Set(new OrderQty(Convert.ToDecimal("1000000")));
-            nos.Set(new Account("357647"));
-            nos.Set(new Currency("EUR"));
+            nos.Set(new OrderQty(o.size));
+            nos.Set(new Account(o.account));
+            nos.Set(new Currency(o.instrument.Substring(0, 3)));
             
             // Setup a group for more stuff
             QuickFix.FIX44.NewOrderSingle.NoTradingSessionsGroup ts = new QuickFix.FIX44.NewOrderSingle.NoTradingSessionsGroup();
@@ -378,23 +394,13 @@ namespace Usrtec
         	nos.AddGroup(ts);            
             
  			// Eiger needs tag 117, 303, 336 for a NewOrderSingle
- 			// Tag 117 is the quote id for the rfq. Need to look this up from the RFQ QUOTE struct
- 			string latest_quote_id = Rfq.get_rfq_quote(clOrdID.ToString());
- 			
- 			nos.SetField(new StringField(117, latest_quote_id));
+ 			// Tag 117 is the quote id for the rfq. 		
+ 			nos.SetField(new StringField(117, o.quote_id));
  			nos.SetField(new StringField(303, "102"));
- 			 			nos.SetField(new StringField(303, "102"));
+
  			// nos.SetField(new StringField(303, QuoteRequestType.AUTOMATIC.ToString()));
  			// nos.SetField(new StringField(336, "GSLDIRECT"));
-                               
-			// GTC order at some price. The ordType needs to be LIMIT
-            // nos.Set(new TimeInForce(TimeInForce.GOOD_TILL_CANCEL));
-            // nos.Set(new Price(Convert.ToDecimal(1.50)));
-            
-            // For IOC orders ordType needs to be MARKET
-            // nos.Set(new TimeInForce(TimeInForce.IMMEDIATE_OR_CANCEL));          
-            // nos.Set(new StopPx(Convert.ToDecimal("2.00")));
-            
+
             return nos;
         }		
 		

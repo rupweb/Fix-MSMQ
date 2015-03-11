@@ -42,3 +42,10 @@
 20150311-16:58:38.299 : Initiated logout request
 20150311-16:58:38.345 : Received logout response
 20150311-16:58:38.346 : Session FIX.4.4:ipes.apiuat_ORD->GSL_FX disconnecting: Received logout response
+20150311-18:06:58.005 : Created session
+20150311-18:06:58.165 : Connecting to 212.159.113.148 on port 1201
+20150311-18:06:58.217 : Connection succeeded
+20150311-18:06:58.377 : Session reset: ResetOnLogon
+20150311-18:06:58.463 : Session reset: ResetSeqNumFlag
+20150311-18:06:58.468 : Initiated logon request
+20150311-18:06:58.612 : Received logon
