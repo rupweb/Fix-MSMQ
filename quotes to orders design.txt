@@ -1,0 +1,29 @@
+1. quote instruction
+2. quote
+3. quote
+4. quote
+5. order instruction
+6. quote
+7. quote
+8. execution report
+
+
+does the quote stream stop?
+
+
+code
+----
+
+1. rfq comes with id, size, side, instrument, cpty.
+2. put rfq_id into struct.
+3. send rfq.
+4. receive quote.
+5. put quote_id into struct next to rfq_id.
+6. continually overwrite? yeeeah. For now, anyway.
+7. repeat.
+8. repeat.
+9. order comes with rfq_id. any quote_id will be wrong.
+10. lookup struct with rfq_id.
+11. send nos with rfq_id and latest quote_id.
+11.1 (could do some kind of volatility checks here)
+12. deliver execution report.

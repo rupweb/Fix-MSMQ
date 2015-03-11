@@ -7,6 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 using QuickFix;
 using QuickFix.Fields;
@@ -22,8 +24,15 @@ namespace Usrtec
 		// Set up the activemq layer to publish FIX messages to activeMQ
 		Publisher fixin = new Publisher();
 		Publisher fixout = new Publisher();
-		Publisher price = new Publisher();
+		Publisher quote = new Publisher();
 		Publisher trade = new Publisher();		
+		
+		// Setup the RFQ to QUOTE struct array
+		// Rfq rfq_and_quote = new Rfq();
+
+		// Set up the rfq quote list
+		// List<Rfq2> rfq_and_quote = new List<Rfq2>();
+		// Rfq3 rfq_and_quote = new Rfq3();
 		
 		// Constructor sets up activeMQ topics
 		public Engine()
@@ -33,8 +42,8 @@ namespace Usrtec
 			fixin.NewTopic("fixin");
 			fixout.NewTopic("fixout");
 			// Specific topics
-			price.NewTopic("fixtypeS");
-			trade.NewTopic("fixtype8");
+			quote.NewTopic("quotes");
+			trade.NewTopic("trades");
 		}
 		
 		#region QuickFix.Application Methods
@@ -142,7 +151,17 @@ namespace Usrtec
 		{
 			Console.WriteLine("Quote from: " + s.ToString());
 			// Publish price snapshot message to fixtypeS
-			price.Publish(msg.ToString());
+			quote.Publish(msg.ToString());
+			
+			// Populate the rfq_id : latest_quote_id name value pair
+			// That's rfq_id tag 131 and quote_id 117
+			
+			// rfq_and_quote.Add( msg.GetField(131), msg.GetField(117) );
+			Rfq.set_rfq_quote(msg.GetField(131), msg.GetField(117));
+			
+			// TODO: Search the rfq:quote array for the rfq_id
+			// if it's there, update the quote
+			// if it's not there, make a new pair
 		}		
 		
 		public void OnMessage(QuickFix.FIX44.QuoteCancel msg, SessionID s) 
@@ -155,7 +174,7 @@ namespace Usrtec
 		{
 			Console.WriteLine("MarketDataSnapshot from: " + s.ToString());
 			// Publish price snapshot message to fixtypeS
-			price.Publish(msg.ToString());
+			quote.Publish(msg.ToString());
 		}
 		
 		public void OnMessage(QuickFix.FIX44.MarketDataIncrementalRefresh msg, SessionID s) 

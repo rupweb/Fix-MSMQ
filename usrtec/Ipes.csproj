@@ -50,12 +50,6 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apache.NMS">
-      <HintPath>..\..\..\..\activemq\nms\nms\net-4.0\release\Apache.NMS.dll</HintPath>
-    </Reference>
-    <Reference Include="Apache.NMS.ActiveMQ">
-      <HintPath>..\..\..\..\activemq\nms\build\net-4.0\release\Apache.NMS.ActiveMQ.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -84,6 +78,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publisher.cs" />
+    <Compile Include="Rfq.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

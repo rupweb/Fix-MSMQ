@@ -1,6 +1,6 @@
 - show which topic/queue waiting for messages in the startup log
-- 
-- 
+- is there a FIX reconciliation report like a SWIFT 940?
+- what if provider 1 is FIX 4.2 and provider 2 is fix 4.4?
 - website with a form / webservice that allows to enter FIX commands
 - connect webservice to activeMQ
 

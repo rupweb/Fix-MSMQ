@@ -1,48 +1,44 @@
-20150219-20:32:48.787 : Created session
-20150219-20:32:48.980 : Connecting to 212.159.113.148 on port 1201
-20150219-20:32:49.033 : Connection succeeded
-20150219-20:32:49.262 : Session reset: ResetOnLogon
-20150219-20:32:49.364 : Session reset: ResetSeqNumFlag
-20150219-20:32:49.370 : Initiated logon request
-20150219-20:32:49.506 : Received logon
-20150219-20:40:09.008 : Initiated logout request
-20150219-20:40:09.039 : Received logout response
-20150219-20:40:09.039 : Session FIX.4.4:ipes.apiuat_ORD->GSL_FX disconnecting: Received logout response
-20150219-20:42:34.687 : Created session
-20150219-20:42:34.847 : Connecting to 212.159.113.148 on port 1201
-20150219-20:42:34.902 : Connection succeeded
-20150219-20:42:35.012 : Session reset: ResetOnLogon
-20150219-20:42:35.114 : Session reset: ResetSeqNumFlag
-20150219-20:42:35.121 : Initiated logon request
-20150219-20:42:35.258 : Received logon
-20150219-20:43:24.920 : Initiated logout request
-20150219-20:43:24.967 : Received logout response
-20150219-20:43:24.968 : Session FIX.4.4:ipes.apiuat_ORD->GSL_FX disconnecting: Received logout response
-20150219-20:58:13.081 : Created session
-20150219-20:58:13.241 : Connecting to 212.159.113.148 on port 1201
-20150219-20:58:13.294 : Connection succeeded
-20150219-20:58:13.407 : Session reset: ResetOnLogon
-20150219-20:58:13.506 : Session reset: ResetSeqNumFlag
-20150219-20:58:13.513 : Initiated logon request
-20150219-20:58:13.646 : Received logon
-20150219-20:58:52.439 : Initiated logout request
-20150219-20:58:52.485 : Received logout response
-20150219-20:58:52.485 : Session FIX.4.4:ipes.apiuat_ORD->GSL_FX disconnecting: Received logout response
-20150219-20:59:22.287 : Created session
-20150219-20:59:22.446 : Connecting to 212.159.113.148 on port 1201
-20150219-20:59:22.501 : Connection succeeded
-20150219-20:59:22.594 : Session reset: ResetOnLogon
-20150219-20:59:22.705 : Session reset: ResetSeqNumFlag
-20150219-20:59:22.713 : Initiated logon request
-20150219-20:59:22.886 : Received logon
-20150219-21:11:32.237 : Created session
-20150219-21:11:32.393 : Connecting to 212.159.113.148 on port 1201
-20150219-21:11:32.455 : Connection succeeded
-20150219-21:11:32.533 : Session reset: ResetOnLogon
-20150219-21:11:32.627 : Session reset: ResetSeqNumFlag
-20150219-21:11:32.627 : Initiated logon request
-20150219-21:11:32.845 : Received logon
-20150219-21:12:36.733 : Message 6 Rejected: Required tag missing (Field=117)
-20150219-21:13:01.069 : Initiated logout request
-20150219-21:13:01.116 : Received logout response
-20150219-21:13:01.116 : Session FIX.4.4:ipes.apiuat_ORD->GSL_FX disconnecting: Received logout response
+20150311-15:21:06.126 : Created session
+20150311-15:21:06.285 : Connecting to 212.159.113.148 on port 1201
+20150311-15:21:06.342 : Connection succeeded
+20150311-15:21:06.544 : Session reset: ResetOnLogon
+20150311-15:21:06.662 : Session reset: ResetSeqNumFlag
+20150311-15:21:06.667 : Initiated logon request
+20150311-15:21:08.298 : Received logon
+20150311-15:21:53.937 : Created session
+20150311-15:21:54.100 : Connecting to 212.159.113.148 on port 1201
+20150311-15:21:54.155 : Connection succeeded
+20150311-15:21:54.387 : Session reset: ResetOnLogon
+20150311-15:21:54.492 : Session reset: ResetSeqNumFlag
+20150311-15:21:54.497 : Initiated logon request
+20150311-15:23:45.899 : Session FIX.4.4:ipes.apiuat_ORD->GSL_FX disconnecting: Timed out waiting for logon response
+20150311-15:23:59.965 : Connecting to 212.159.113.148 on port 1201
+20150311-15:24:00.095 : Connection succeeded
+20150311-15:24:00.101 : Session reset: ResetOnLogon
+20150311-15:24:12.301 : Session reset: ResetSeqNumFlag
+20150311-15:24:13.795 : Initiated logon request
+20150311-15:24:57.684 : Session FIX.4.4:ipes.apiuat_ORD->GSL_FX disconnecting: Timed out waiting for logon response
+20150311-15:25:59.982 : Connecting to 212.159.113.148 on port 1201
+20150311-15:26:00.025 : Connection succeeded
+20150311-15:26:00.027 : Session reset: ResetOnLogon
+20150311-15:26:00.029 : Session reset: ResetSeqNumFlag
+20150311-15:26:00.029 : Initiated logon request
+20150311-15:26:03.287 : Received logon
+20150311-15:36:43.578 : Initiated logout request
+20150311-15:36:43.623 : Received logout response
+20150311-15:36:43.623 : Session FIX.4.4:ipes.apiuat_ORD->GSL_FX disconnecting: Received logout response
+20150311-15:52:14.234 : Created session
+20150311-15:52:14.395 : Connecting to 212.159.113.148 on port 1201
+20150311-15:52:14.463 : Connection succeeded
+20150311-15:52:14.735 : Session reset: ResetOnLogon
+20150311-15:52:14.849 : Session reset: ResetSeqNumFlag
+20150311-15:52:14.858 : Initiated logon request
+20150311-15:52:17.747 : Received logon
+20150311-15:53:44.717 : Sent test request TEST
+20150311-15:59:59.632 : Sent test request TEST
+20150311-16:04:38.028 : Sent test request TEST
+20150311-16:07:16.376 : Sent test request TEST
+20150311-16:09:47.736 : Sent test request TEST
+20150311-16:58:38.299 : Initiated logout request
+20150311-16:58:38.345 : Received logout response
+20150311-16:58:38.346 : Session FIX.4.4:ipes.apiuat_ORD->GSL_FX disconnecting: Received logout response
